@@ -8,6 +8,7 @@ export default function MovieCard(props) {
   return (
     <>
       <MovieImage
+        movieId={props.movieId}
         imageUrl={props.imageUrl}
         onEditMovie={props.onEditMovie}
         onDeleteMovie={props.onDeleteMovie}
@@ -20,6 +21,7 @@ export default function MovieCard(props) {
 }
 
 MovieCard.propTypes = {
+  movieId: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,

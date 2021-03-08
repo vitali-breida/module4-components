@@ -9,6 +9,7 @@ export default function ResultsBody(props) {
       {props.movies.map((movie) => (
         <GridListTile key={movie.title}>
           <MovieCard
+            movieId={movie.id}
             title={movie.title}
             genre={movie.genre}
             releaseDate={movie.releaseDate}

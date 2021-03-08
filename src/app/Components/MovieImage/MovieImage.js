@@ -22,7 +22,7 @@ export default class MovieImage extends React.Component {
   }
 
   handleEdit(e) {
-    this.props.onEditMovie(e);
+    this.props.onEditMovie(e, this.props.movieId);
     this.handleClose(e);
   }
 
@@ -56,6 +56,7 @@ export default class MovieImage extends React.Component {
 }
 
 MovieImage.propTypes = {
+  movieId: PropTypes.number.isRequired,
   imageUrl: PropTypes.string.isRequired,
   onEditMovie: PropTypes.func.isRequired,
   onDeleteMovie: PropTypes.func.isRequired
