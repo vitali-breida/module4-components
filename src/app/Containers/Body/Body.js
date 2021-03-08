@@ -23,7 +23,11 @@ export default function Body(props) {
 
       <ErrorBoundary>
         <ResultsCount />
-        <ResultsBody movies={props.movies} />
+        <ResultsBody
+          movies={props.movies}
+          onEditMovie={props.onEditMovie}
+          onDeleteMovie={props.onDeleteMovie}
+        />
       </ErrorBoundary>
     </>
   );
@@ -32,5 +36,7 @@ export default function Body(props) {
 Body.propTypes = {
   movies: PropTypes.array.isRequired,
   sortBy: PropTypes.oneOf(["releaseDate", "title"]),
-  onChangeSortBy: PropTypes.func.isRequired
+  onChangeSortBy: PropTypes.func.isRequired,
+  onEditMovie: PropTypes.func.isRequired,
+  onDeleteMovie: PropTypes.func.isRequired
 };

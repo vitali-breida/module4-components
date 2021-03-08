@@ -49,7 +49,7 @@ let movies = [
       "https://s1.livelib.ru/boocover/1000108581/o/f2c0/Kventin_Tarantino__Beshenye_psy.jpeg"
   }
 ].sort((a, b) => {
-  // sort by  release date by default
+  // sort by "release date" by default
   return a.releaseDate.localeCompare(b.releaseDate);
 });
 
@@ -83,6 +83,14 @@ export default class App extends React.Component {
     this.setState({ isAddMovieDialogVisible: false });
   }
 
+  showEditMovieDialog(e) {
+    console.log("edit movie");
+  }
+
+  showDeleteMovieDialog(e) {
+    console.log("delete movie");
+  }
+
   // add mocked element to array
   addMovie(e) {
     let newMovies = this.state.movies.slice();
@@ -111,6 +119,8 @@ export default class App extends React.Component {
           movies={this.state.movies}
           sortBy={this.state.sortBy}
           onChangeSortBy={this.setSortBy}
+          onEditMovie={this.showEditMovieDialog}
+          onDeleteMovie={this.showDeleteMovieDialog}
         />
         <Footer />
         <AddMovieDialog
