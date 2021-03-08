@@ -87,6 +87,9 @@ export default class App extends React.Component {
   addMovie(e) {
     let newMovies = this.state.movies.slice();
     newMovies.push(mockedMovie);
+    newMovies.sort((a, b) => {
+      return a[this.state.sortBy].localeCompare(b[this.state.sortBy]);
+    });
 
     this.setState({ movies: newMovies, isAddMovieDialogVisible: false });
   }
