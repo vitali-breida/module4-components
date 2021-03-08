@@ -11,6 +11,7 @@ export default class App extends React.Component {
     this.state = { isAddMovieDialogVisible: false };
     this.showAddMovieDialog = this.showAddMovieDialog.bind(this);
     this.closeAddMovieDialog = this.closeAddMovieDialog.bind(this);
+    this.addMovie = this.addMovie.bind(this);
   }
 
   showAddMovieDialog() {
@@ -19,6 +20,10 @@ export default class App extends React.Component {
 
   closeAddMovieDialog() {
     this.setState({ isAddMovieDialogVisible: false });
+  }
+
+  addMovie() {
+    console.log("submit");
   }
 
   render() {
@@ -30,6 +35,7 @@ export default class App extends React.Component {
         <AddMovieDialog
           show={this.state.isAddMovieDialogVisible}
           onClose={this.closeAddMovieDialog}
+          onSubmit={this.addMovie}
         />
       </>
     );
