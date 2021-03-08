@@ -14,7 +14,10 @@ export default function Body(props) {
           <ResultsFilter />
         </Box>
         <Box width="50%" display="flex" justifyContent="flex-end">
-          <ResultsSort />
+          <ResultsSort
+            sortBy={props.sortBy}
+            onChangeSortBy={props.onChangeSortBy}
+          />
         </Box>
       </Box>
 
@@ -27,5 +30,7 @@ export default function Body(props) {
 }
 
 Body.propTypes = {
-  movies: PropTypes.array.isRequired
+  movies: PropTypes.array.isRequired,
+  sortBy: PropTypes.oneOf(["releaseDate", "title"]),
+  onChangeSortBy: PropTypes.func.isRequired
 };

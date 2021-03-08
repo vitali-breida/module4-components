@@ -48,15 +48,31 @@ let movies = [
     imageUrl:
       "https://s1.livelib.ru/boocover/1000108581/o/f2c0/Kventin_Tarantino__Beshenye_psy.jpeg"
   }
-];
+].sort((a, b) => {
+  // sort by  release date by default
+  return a.releaseDate.localeCompare(b.releaseDate);
+});
+
+let mockedMovie = {
+  title: "Mocked title",
+  genre: "Mocked genre",
+  releaseDate: "2004",
+  imageUrl:
+    "https://s1.livelib.ru/boocover/1000530481/o/10c8/Quentin_Tarantino__Pulp_Fiction_A_Quentin_Tarantino_Screenplay.jpeg"
+};
 
 export default class App extends React.Component {
   constructor() {
     super();
-    this.state = { isAddMovieDialogVisible: false, movies: movies };
+    this.state = {
+      isAddMovieDialogVisible: false,
+      movies: movies,
+      sortBy: "releaseDate"
+    };
     this.showAddMovieDialog = this.showAddMovieDialog.bind(this);
     this.closeAddMovieDialog = this.closeAddMovieDialog.bind(this);
     this.addMovie = this.addMovie.bind(this);
+    this.setSortBy = this.setSortBy.bind(this);
   }
 
   showAddMovieDialog(e) {
@@ -70,22 +86,29 @@ export default class App extends React.Component {
   // add mocked element to array
   addMovie(e) {
     let newMovies = this.state.movies.slice();
-    newMovies.push({
-      title: "Mocked title",
-      genre: "Mocked genre",
-      releaseDate: "2004",
-      imageUrl:
-        "https://s1.livelib.ru/boocover/1000530481/o/10c8/Quentin_Tarantino__Pulp_Fiction_A_Quentin_Tarantino_Screenplay.jpeg"
-    });
+    newMovies.push(mockedMovie);
 
     this.setState({ movies: newMovies, isAddMovieDialogVisible: false });
+  }
+
+  setSortBy(e, newValue) {
+    let newMovies = this.state.movies.slice();
+    newMovies.sort((a, b) => {
+      return a[newValue].localeCompare(b[newValue]);
+    });
+
+    this.setState({ sortBy: newValue, movies: newMovies });
   }
 
   render() {
     return (
       <>
         <Header onAddMovie={this.showAddMovieDialog} />
-        <Body movies={this.state.movies} />
+        <Body
+          movies={this.state.movies}
+          sortBy={this.state.sortBy}
+          onChangeSortBy={this.setSortBy}
+        />
         <Footer />
         <AddMovieDialog
           show={this.state.isAddMovieDialogVisible}
