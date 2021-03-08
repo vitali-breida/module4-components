@@ -4,8 +4,9 @@ import ResultsSort from "../../Components/ResultsSort/ResultsSort";
 import ResultsBody from "../ResultsBody/ResultsBody";
 import Box from "@material-ui/core/Box";
 import ErrorBoundary from "../../Components/ErrorBoundary/ErrorBoundary";
+import PropTypes from "prop-types";
 
-export default function Body() {
+export default function Body(props) {
   return (
     <>
       <Box display="flex">
@@ -19,8 +20,12 @@ export default function Body() {
 
       <ErrorBoundary>
         <ResultsCount />
-        <ResultsBody />
+        <ResultsBody movies={props.movies} />
       </ErrorBoundary>
     </>
   );
 }
+
+Body.propTypes = {
+  movies: PropTypes.array.isRequired
+};
