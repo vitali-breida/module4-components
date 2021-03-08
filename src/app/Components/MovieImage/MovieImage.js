@@ -27,7 +27,7 @@ export default class MovieImage extends React.Component {
   }
 
   handleDelete(e) {
-    this.props.onDeleteMovie(e);
+    this.props.onDeleteMovie(e, this.props.movieId);
     this.handleClose(e);
   }
 

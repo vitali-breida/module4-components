@@ -5,6 +5,7 @@ import Footer from "./app/Containers/Footer/Footer";
 import React from "react";
 import AddMovieDialog from "./app/Components/AddMovieDialog/AddMovieDialog";
 import EditMovieDialog from "./app/Components/EditMovieDialog/EditMovieDialog";
+import DeleteMovieDialog from "./app/Components/DeleteMovieDialog/DeleteMovieDialog";
 
 let movies = [
   {
@@ -74,6 +75,7 @@ export default class App extends React.Component {
     this.state = {
       isAddMovieDialogVisible: false,
       isEditMovieDialogVisible: false,
+      isDeleteMovieDialogVisible: false,
       editedMovieId: null,
       movies: movies,
       sortBy: "releaseDate"
@@ -86,6 +88,10 @@ export default class App extends React.Component {
     this.showEditMovieDialog = this.showEditMovieDialog.bind(this);
     this.closeEditMovieDialog = this.closeEditMovieDialog.bind(this);
     this.editMovie = this.editMovie.bind(this);
+
+    this.showDeleteMovieDialog = this.showDeleteMovieDialog.bind(this);
+    this.closeDeleteMovieDialog = this.closeDeleteMovieDialog.bind(this);
+    this.deleteMovie = this.deleteMovie.bind(this);
 
     this.setSortBy = this.setSortBy.bind(this);
   }
@@ -106,13 +112,18 @@ export default class App extends React.Component {
     this.setState({ editedMovieId: null, isEditMovieDialogVisible: false });
   }
 
-  showDeleteMovieDialog(e) {
-    console.log("delete movie");
+  showDeleteMovieDialog(e, id) {
+    this.setState({ editedMovieId: id, isDeleteMovieDialogVisible: true });
   }
 
+  closeDeleteMovieDialog(e) {
+    this.setState({ editedMovieId: null, isDeleteMovieDialogVisible: false });
+  }
+
+  // add mocked element to array
   addMovie(e) {
     let newMovies = this.state.movies.slice();
-    // add mocked element to array
+
     mockedMovie.id = new Date().getTime();
     newMovies.push(mockedMovie);
 
@@ -133,6 +144,23 @@ export default class App extends React.Component {
     this.setState({
       movies: newMovies,
       isEditMovieDialogVisible: false,
+      editedMovieId: null
+    });
+  }
+
+  deleteMovie(e) {
+    let newMovies = this.state.movies
+      .slice()
+      .filter((el) => {
+        return el.id !== this.state.editedMovieId;
+      })
+      .sort((a, b) => {
+        return a[this.state.sortBy].localeCompare(b[this.state.sortBy]);
+      });
+
+    this.setState({
+      movies: newMovies,
+      isDeleteMovieDialogVisible: false,
       editedMovieId: null
     });
   }
@@ -169,6 +197,12 @@ export default class App extends React.Component {
           show={this.state.isEditMovieDialogVisible}
           onClose={this.closeEditMovieDialog}
           onSubmit={this.editMovie}
+        />
+        <DeleteMovieDialog
+          movieId={this.state.editedMovieId}
+          show={this.state.isDeleteMovieDialogVisible}
+          onClose={this.closeDeleteMovieDialog}
+          onSubmit={this.deleteMovie}
         />
       </>
     );
