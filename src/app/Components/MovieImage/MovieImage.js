@@ -31,6 +31,14 @@ export default class MovieImage extends React.Component {
     this.handleClose(e);
   }
 
+  componentDidMount() {
+    console.log("MovieImage is mounted");
+  }
+
+  componentWillUnmount() {
+    console.log("MovieImage is dismounted");
+  }
+
   render() {
     return (
       <>
